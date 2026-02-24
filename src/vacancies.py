@@ -77,4 +77,10 @@ class Vacancy:
 
     def vacancies_cast_to_dict(self) -> dict[str, (str | float)]:
         "Перевод данных в словарь"
-        return {"name": self.name, "salary": self.salary, "url": self.url, "responsibility": self.responsibility, "employer_id": self.employer_id}
+        return {
+            "name": self.name,
+            "salary": self.salary,
+            "url": self.url,
+            "responsibility": self.responsibility,
+            "employer_id": self.employer_id,
+        }

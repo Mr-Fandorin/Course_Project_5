@@ -1,5 +1,3 @@
-
-
 from src.api import HH_employers, HH_vacancies
 
 
@@ -28,8 +26,9 @@ def get_list_vacancies(id_list_employers: list) -> list:
 
 
 if __name__ == "__main__":
-    # list_emp = get_list_employers([2573503, 3847149, 2184551, 1386452, 2180726, 238661, 629945, 9855, 2597277, 3714350])
-    # print(list_emp)
 
-    list_vac = get_list_vacancies([2573503, 3847149, 2184551, 1386452, 2180726, 238661, 629945, 9855, 2597277, 3714350])
+
+    list_vac = get_list_vacancies(
+        [2573503, 3847149, 2184551, 1386452, 2180726, 238661, 629945, 9855, 2597277, 3714350]
+    )
     print(list_vac)

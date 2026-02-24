@@ -15,7 +15,11 @@ class Employer:
         self.url = url
         self.open_vacancies = open_vacancies
 
-
     def employers_cast_to_dict(self) -> dict[str, (str | int)]:
         "Перевод данных в словарь"
-        return {"employer_id": self.employer_id, "name": self.name, "url": self.url, "open_vacancies": self.open_vacancies}
+        return {
+            "employer_id": self.employer_id,
+            "name": self.name,
+            "url": self.url,
+            "open_vacancies": self.open_vacancies,
+        }

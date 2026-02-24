@@ -5,7 +5,7 @@ import psycopg2
 def create_database(database_name: str, params: dict) -> None:
     """Создание базы данных и таблиц для сохранения данных о каналах и видео."""
 
-    conn = psycopg2.connect(dbname='postgres', **params)
+    conn = psycopg2.connect(dbname="postgres", **params)
     conn.autocommit = True
     cur = conn.cursor()
 
@@ -25,21 +25,23 @@ def create_database(database_name: str, params: dict) -> None:
     # cur.close()
     # conn.close()
 
-
     conn = psycopg2.connect(dbname=database_name, **params)
 
     with conn.cursor() as cur:
-        cur.execute("""
+        cur.execute(
+            """
             CREATE TABLE IF NOT EXISTS employers (
                 employer_id INTEGER PRIMARY KEY,
                 name VARCHAR NOT NULL,
                 url TEXT,
                 open_vacancies INTEGER
             )
-        """)
+        """
+        )
 
     with conn.cursor() as cur:
-        cur.execute("""
+        cur.execute(
+            """
             CREATE TABLE IF NOT EXISTS vacancies (
                 vacancies_id SERIAL PRIMARY KEY,
                 employer_id INT REFERENCES employers(employer_id),
@@ -48,7 +50,8 @@ def create_database(database_name: str, params: dict) -> None:
                 url TEXT,
                 responsibility TEXT
             )
-        """)
+        """
+        )
 
     conn.commit()
     conn.close()
@@ -68,8 +71,7 @@ def save_data_to_database(data_employers: list, data_vacancies: list, database_n
                 VALUES (%s, %s, %s, %s)
                 RETURNING employer_id
                 """,
-                (employer['employer_id'], employer['name'], employer['url'],
-                 employer['open_vacancies'])
+                (employer["employer_id"], employer["name"], employer["url"], employer["open_vacancies"]),
             )
             # employer_id = cur.fetchone()[0]
 
@@ -80,8 +82,13 @@ def save_data_to_database(data_employers: list, data_vacancies: list, database_n
                  INSERT INTO vacancies (employer_id, name, salary, url, responsibility)
                 VALUES (%s, %s, %s, %s, %s)
                 """,
-                (vacancy['employer_id'], vacancy['name'], vacancy['salary'],
-                 vacancy['url'], vacancy.get('responsibility', ''))
+                (
+                    vacancy["employer_id"],
+                    vacancy["name"],
+                    vacancy["salary"],
+                    vacancy["url"],
+                    vacancy.get("responsibility", ""),
+                ),
             )
 
     conn.commit()

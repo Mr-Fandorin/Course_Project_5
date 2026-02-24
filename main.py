@@ -1,5 +1,3 @@
-import os
-
 import psycopg2
 
 from src.DBManager import DBManager
@@ -13,7 +11,6 @@ from src.vacancies import Vacancy
 
 def main():
 
-
     list_id_employers = [2573503, 3847149, 2184551, 1386452, 2180726, 238661, 629945, 9855, 2597277, 3714350]
 
     list_employers = get_list_employers(list_id_employers)
@@ -22,10 +19,10 @@ def main():
     for emp in list_employers:
         # Создаём объект Employer и добавляем его в список vacancies
         employer = Employer(
-            employer_id=int(emp['id']),
-            name=emp['name'],
-            url=emp['alternate_url'],
-            open_vacancies=emp['open_vacancies']
+            employer_id=int(emp["id"]),
+            name=emp["name"],
+            url=emp["alternate_url"],
+            open_vacancies=emp["open_vacancies"],
         )
         employers.append(employer)
 
@@ -33,19 +30,17 @@ def main():
     for emp in employers:
         employers_dict.append(emp.employers_cast_to_dict())
 
-
-
     list_vacancies = get_list_vacancies(list_id_employers)
 
     vacancies = []
     for vac in list_vacancies:
         # Создаём объект Vacancy и добавляем его в список vacancies
         vacancy = Vacancy(
-            employer_id=int(vac['employer']['id']),
-            name=vac['name'],
-            salary=vac['salary'],
-            url=vac['alternate_url'],
-            responsibility=vac['snippet']['responsibility']
+            employer_id=int(vac["employer"]["id"]),
+            name=vac["name"],
+            salary=vac["salary"],
+            url=vac["alternate_url"],
+            responsibility=vac["snippet"]["responsibility"],
         )
         vacancies.append(vacancy)
 
@@ -58,15 +53,16 @@ def main():
 
     params = config()
 
-    create_database('my_hh_db', params)
-    save_data_to_database(employers_dict, vacancies_dict, 'my_hh_db', params)
+    create_database("my_hh_db", params)
+    save_data_to_database(employers_dict, vacancies_dict, "my_hh_db", params)
 
 
 print("Привет! Добро пожаловать в программу работы с вакансиями")
 print(
     "Выберите необходимый пункт меню:\n"
     "1. Получить список всех компаний и количество вакансий у каждой компании\n"
-    "2. Получить список всех вакансий с указанием названия компании, названия вакансии и зарплаты и ссылки на вакансию\n"
+    "2. Получить список всех вакансий с указанием названия компании, "
+    "названия вакансии и зарплаты и ссылки на вакансию\n"
     "3. Получить среднюю зарплату по вакансиям\n"
     "4. Получить список всех вакансий, у которых зарплата выше средней по всем вакансиям\n"
     "5. Получить список всех вакансий, в названии которых содержится переданное слово\n"
@@ -82,7 +78,10 @@ try:
         print(results)
 
     elif num_menu == 2:
-        print("Получаем список всех вакансий с указанием названия компании, названия вакансии и зарплаты и ссылки на вакансию.\n")
+        print(
+            "Получаем список всех вакансий с указанием названия компании, "
+            "названия вакансии и зарплаты и ссылки на вакансию.\n"
+        )
         results = a.get_all_vacancies()
         print(results)
 
@@ -119,8 +118,5 @@ except Exception as e:
     print(f"Произошла непредвиденная ошибка: {e}")
 
 
-
-
-
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

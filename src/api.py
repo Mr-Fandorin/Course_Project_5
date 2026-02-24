@@ -21,7 +21,6 @@ class HH_employers:
         return employer
 
 
-
 class HH_vacancies:
     """Класс для загрузки вакансий с HeadHunter"""
 
@@ -33,7 +32,7 @@ class HH_vacancies:
             "page": 0,
             "per_page": 100,
             "only_with_salary": True,
-            "currency": "RUR"
+            "currency": "RUR",
         }
         self.__vacancies = []
 
@@ -67,9 +66,6 @@ class HH_vacancies:
             self.__params["page"] += 1
 
         return self.__vacancies
-
-
-
 
 
 if __name__ == "__main__":
