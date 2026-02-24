@@ -1,0 +1,9 @@
+# Создайте файл database.ini из копии этого файла и замените значения переменных реальными данными
+
+# Конфигурация базы данных
+
+[postgresql]
+host=localhost
+user=postgres
+password=your password #ваш пароль
+port=5432
