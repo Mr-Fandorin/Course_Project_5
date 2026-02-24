@@ -4,6 +4,7 @@ from config import config  # импортируем функцию из config.p
 
 
 class DBManager:
+    "Класс для подключения к БД и работы с данными из таблиц работодателей и вакансий"
     def __init__(self, config_file="database.ini", config_section="postgresql"):
         self.params = config(config_file, config_section)
 
@@ -15,6 +16,7 @@ class DBManager:
                 return cur.fetchall()
 
     def get_companies_and_vacancies_count(self) -> list:
+        """Получает список всех компаний и количество вакансий у каждой компании"""
         conn = psycopg2.connect(dbname="my_hh_db", **self.params)
         cur = conn.cursor()
         cur.execute(
@@ -32,6 +34,8 @@ class DBManager:
         return results
 
     def get_all_vacancies(self) -> list:
+        """Получает список всех вакансий с указанием названия компании,
+        названия вакансии и зарплаты и ссылки на вакансию"""
         conn = psycopg2.connect(dbname="my_hh_db", **self.params)
 
         cur = conn.cursor()
@@ -53,6 +57,7 @@ class DBManager:
         return results
 
     def get_avg_salary(self) -> list:
+        """Получает среднюю зарплату по вакансиям"""
         conn = psycopg2.connect(dbname="my_hh_db", **self.params)
 
         cur = conn.cursor()
@@ -68,6 +73,7 @@ class DBManager:
         return results
 
     def get_vacancies_with_higher_salary(self) -> list:
+        """Получает список всех вакансий, у которых зарплата выше средней по всем вакансиям"""
         conn = psycopg2.connect(dbname="my_hh_db", **self.params)
         cur = conn.cursor()
         cur.execute(
@@ -87,6 +93,7 @@ class DBManager:
         return results
 
     def get_vacancies_with_keyword(self, keyword: str) -> list:
+        """Получает список всех вакансий, в названии которых содержится переданное в метод слово"""
         conn = psycopg2.connect(dbname="my_hh_db", **self.params)
         cur = conn.cursor()
         try:

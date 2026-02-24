@@ -3,7 +3,7 @@ import psycopg2
 
 
 def create_database(database_name: str, params: dict) -> None:
-    """Создание базы данных и таблиц для сохранения данных о каналах и видео."""
+    """Создание базы данных и таблиц для сохранения данных о работодателях и их вакансиях."""
 
     conn = psycopg2.connect(dbname="postgres", **params)
     conn.autocommit = True
@@ -21,9 +21,6 @@ def create_database(database_name: str, params: dict) -> None:
     finally:
         cur.close()
         conn.close()
-    #
-    # cur.close()
-    # conn.close()
 
     conn = psycopg2.connect(dbname=database_name, **params)
 
@@ -58,7 +55,7 @@ def create_database(database_name: str, params: dict) -> None:
 
 
 def save_data_to_database(data_employers: list, data_vacancies: list, database_name: str, params: dict):
-    """Сохранение данных о каналах и видео в базу данных."""
+    """Сохранение данных о работодателях и вакансиях в базу данных."""
 
     conn = psycopg2.connect(dbname=database_name, **params)
 

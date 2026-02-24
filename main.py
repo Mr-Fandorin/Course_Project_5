@@ -10,7 +10,7 @@ from src.vacancies import Vacancy
 
 
 def main():
-
+    """Функция для формирования данных о работодателях и их вакансиях и работы с этими данными."""
     list_id_employers = [2573503, 3847149, 2184551, 1386452, 2180726, 238661, 629945, 9855, 2597277, 3714350]
 
     list_employers = get_list_employers(list_id_employers)
